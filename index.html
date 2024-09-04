@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page Navigation</title>
+    <style>
+        /* Navbar Styles */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        /* Content Area Styles */
+        #content-container {
+            margin-top: 60px; /* To avoid overlap with fixed navbar */
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-container"></div> <!-- Placeholder for Navbar -->
+    <div id="content-container"></div> <!-- Placeholder for Page Content -->
+
+    <script>
+        // Function to load the navbar and initial content
+        function loadInitialContent() {
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-container').innerHTML = data;
+                    loadPage('page1.html'); // Load the first page by default
+                });
+        }
+
+        // Function to load pages without reloading the navbar
+        function loadPage(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('content-container').innerHTML = data;
+                });
+        }
+
+        // Load the initial content on page load
+        window.onload = loadInitialContent;
+    </script>
+</body>
+</html>
